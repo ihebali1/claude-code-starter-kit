@@ -6,10 +6,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/validate-frontmatter.mjs && node tests/test-guards.mjs && node tests/test-install.mjs",
+    "test": "node tests/validate-frontmatter.mjs && node tests/test-guards.mjs && node tests/test-install.mjs && node tests/test-plugin.mjs",
     "test:guards": "node tests/test-guards.mjs",
     "test:frontmatter": "node tests/validate-frontmatter.mjs",
-    "test:install": "node tests/test-install.mjs"
+    "test:install": "node tests/test-install.mjs",
+    "test:plugin": "node tests/test-plugin.mjs"
   },
   "engines": {
     "node": ">=18"

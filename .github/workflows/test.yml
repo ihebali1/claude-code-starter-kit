@@ -28,3 +28,35 @@ jobs:
       - name: Prove install.sh installs what it claims
         run: node tests/test-install.mjs
         shell: bash
+      - name: Prove the plugin manifests agree with the installers
+        run: node tests/test-plugin.mjs
+
+  plugin-validate:
+    # `claude plugin validate` is the authority on the manifests, and nothing
+    # else in this repo can catch a schema change. Without this job a bad edit to
+    # .claude-plugin/ stays green here and only fails for someone trying to
+    # install the plugin.
+    #
+    # The manifests are plain JSON and the rest are path-existence checks, so one
+    # OS is enough. The cross-platform risk lives in the hooks, and the matrix job
+    # above already covers those on all three.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # Deliberately unpinned. The plugin directory validates submissions with
+      # whatever rules are current, so if a new release of the validator starts
+      # rejecting these manifests, this job going red is the signal we want.
+      # Finding out from a rejected listing instead is the failure mode.
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+      - name: Report validator version
+        run: claude --version
+      # --strict turns warnings into failures, which is what the plugin docs
+      # recommend for CI. Both manifests are expected to be warning-free.
+      - name: Validate the marketplace manifest
+        run: claude plugin validate . --strict
+      - name: Validate the plugin manifest
+        run: claude plugin validate .claude-plugin/plugin.json --strict
