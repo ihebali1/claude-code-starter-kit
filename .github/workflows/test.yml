@@ -59,6 +59,11 @@ jobs:
       # that trap announces itself instead of looking like a manifest bug.
       - name: Resolve the validator
         run: |
+          echo "PATH claude:   $(command -v claude || echo none)"
+          echo "npm prefix -g: $(npm prefix -g)"
+          echo "npm root -g:   $(npm root -g)"
+          ls -l "$(npm prefix -g)/bin/" | grep -i claude || echo "nothing claude-ish in prefix bin"
+          ls -l "$(npm root -g)/@anthropic-ai/claude-code/" 2>/dev/null | head -20 || echo "package not in npm root"
           CLAUDE_BIN="$(npm prefix -g)/bin/claude"
           "$CLAUDE_BIN" --version
           MIN=2.1.281
