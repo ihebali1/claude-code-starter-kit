@@ -20,6 +20,38 @@ agents/code-reviewer     a read-only reviewer that reports defects, not opinions
 
 ---
 
+## Install as a plugin
+
+This repository is also a Claude Code plugin marketplace, so you can install the
+whole kit — hooks included — without cloning anything or editing `settings.json`:
+
+```bash
+claude plugin marketplace add ihebali1/claude-code-starter-kit
+claude plugin install revampit-starter-kit@revampit
+```
+
+Restart Claude Code, then `claude plugin details revampit-starter-kit` lists what
+you got:
+
+```
+Component inventory
+  Skills (2)  debug-systematically, write-tests
+  Agents (1)  code-reviewer
+  Hooks (1)  PreToolUse  (harness-only — no model context cost)
+```
+
+The hooks are wired up for you by `hooks/hooks.json`, which is the one real
+difference from the copy-based install below: as a plugin there is no
+`settings.json` block to paste, and `claude plugin uninstall` removes everything
+again.
+
+Both installs ship the same files out of the same `hooks/`, `skills/` and
+`agents/` directories — pick whichever suits you. Use the copy install if you want
+to read and edit the hooks in place, or if you are pinning a modified copy into a
+repository your team shares.
+
+---
+
 ## 30-second install
 
 ```bash
@@ -118,9 +150,11 @@ node tests/test-guards.mjs
 === 62 passed, 0 failed ===
 ```
 
-`npm test` runs all three suites: frontmatter validation, the 62 guard cases, and
-an install smoke test that installs into a throwaway `HOME` and checks every file
-landed. CI runs them on Ubuntu, macOS and Windows.
+`npm test` runs all four suites: frontmatter validation, the 62 guard cases, an
+install smoke test that installs into a throwaway `HOME` and checks every file
+landed, and a packaging check that the plugin manifests still point at the same
+directories the copy installers read. CI runs them on Ubuntu, macOS and Windows,
+and runs `claude plugin validate --strict` against both manifests.
 
 Roughly a third of the guard cases assert that something is **allowed**. That is
 deliberate: a guard that blocks `terraform plan` along with `terraform destroy`

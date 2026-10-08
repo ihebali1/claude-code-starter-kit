@@ -1,0 +1,15 @@
+{
+  "name": "revampit",
+  "owner": {
+    "name": "RevampIT LLC",
+    "url": "https://revampit.net"
+  },
+  "description": "Claude Code plugins published by RevampIT LLC.",
+  "plugins": [
+    {
+      "name": "revampit-starter-kit",
+      "source": ".",
+      "description": "Guard hooks that block destructive shell commands and edits to protected files, two skills for systematic debugging and test writing, and a code-reviewer subagent."
+    }
+  ]
+}

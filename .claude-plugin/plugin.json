@@ -1,0 +1,22 @@
+{
+  "name": "revampit-starter-kit",
+  "displayName": "RevampIT Starter Kit",
+  "version": "1.0.0",
+  "description": "Guard hooks that block destructive shell commands and edits to protected files, two skills for systematic debugging and test writing, and a code-reviewer subagent.",
+  "author": {
+    "name": "RevampIT LLC",
+    "url": "https://revampit.net"
+  },
+  "homepage": "https://github.com/ihebali1/claude-code-starter-kit",
+  "repository": "https://github.com/ihebali1/claude-code-starter-kit",
+  "license": "MIT",
+  "keywords": [
+    "hooks",
+    "guardrails",
+    "code-review",
+    "testing",
+    "debugging"
+  ],
+  "documentationUrl": "https://github.com/ihebali1/claude-code-starter-kit#readme",
+  "supportUrl": "https://github.com/ihebali1/claude-code-starter-kit/issues"
+}
