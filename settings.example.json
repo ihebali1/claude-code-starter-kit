@@ -1,0 +1,47 @@
+{
+  "_comment": [
+    "Copy the \"hooks\" and \"permissions\" blocks into ~/.claude/settings.json",
+    "(personal) or <repo>/.claude/settings.json (team). Delete these _comment keys.",
+    "",
+    "Hooks and permissions do different jobs and you want both. A permissions deny",
+    "rule is the wall: it stops the call with no explanation, so the agent retries",
+    "variations of the same idea. The hook is the sign on the wall: it blocks AND",
+    "tells Claude why, so it routes around the problem instead of grinding."
+  ],
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/hooks/guard-bash.sh" }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/hooks/guard-write.sh" }
+        ]
+      }
+    ]
+  },
+
+  "permissions": {
+    "_comment": "Belt and braces. These paths never need to be read or written by an agent.",
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/*.pem)",
+      "Read(./**/id_rsa)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Write(./.env)",
+      "Write(./.git/**)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(npm publish:*)",
+      "Bash(docker push:*)"
+    ]
+  }
+}

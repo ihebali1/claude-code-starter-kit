@@ -1,0 +1,30 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    # The hooks are meant to run on whatever machine a developer uses, so prove
+    # they do. Windows is the one that catches line-ending and PATH mistakes.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate skill and agent frontmatter
+        run: node tests/validate-frontmatter.mjs
+      - name: Prove the guard hooks fire
+        run: node tests/test-guards.mjs
+        shell: bash
+      - name: Prove install.sh installs what it claims
+        run: node tests/test-install.mjs
+        shell: bash

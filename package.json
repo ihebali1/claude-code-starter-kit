@@ -1,0 +1,17 @@
+{
+  "name": "claude-code-starter-kit",
+  "version": "1.0.0",
+  "description": "Guardrail hooks, skills and a reviewer subagent for running Claude Code in production. No dependencies.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/validate-frontmatter.mjs && node tests/test-guards.mjs && node tests/test-install.mjs",
+    "test:guards": "node tests/test-guards.mjs",
+    "test:frontmatter": "node tests/validate-frontmatter.mjs",
+    "test:install": "node tests/test-install.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
