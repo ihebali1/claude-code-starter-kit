@@ -1,0 +1,8 @@
+# The hooks are bash scripts. If git checks them out with CRLF on Windows, bash
+# fails with "$'\r': command not found" and the guard silently stops guarding —
+# which is worse than having no guard, because you think you are covered.
+*.sh text eol=lf
+*.mjs text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.ps1 text eol=crlf

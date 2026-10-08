@@ -1,0 +1,12 @@
+node_modules/
+*.bak
+*.log
+.DS_Store
+
+# Never commit these from a working copy of this repo.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+audit.jsonl
